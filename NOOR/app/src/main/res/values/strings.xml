@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- عام -->
+    <string name="app_name">نُور</string>
+    <string name="app_tagline">رفيقك اليومي إلى الله</string>
+    <string name="back">رجوع</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+    <string name="save">حفظ</string>
+    <string name="reset">إعادة الضبط</string>
+    <string name="phase_label">المرحلة %1$d</string>
+    <string name="status_in_development">قيد التطوير</string>
+
+    <!-- التنقل -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_quran">القرآن</string>
+    <string name="nav_prayer">الصلاة</string>
+    <string name="nav_azkar">الأذكار</string>
+    <string name="nav_more">المزيد</string>
+
+    <!-- الأقسام -->
+    <string name="section_quran">القرآن الكريم</string>
+    <string name="section_memorize">حفظ القرآن والتسميع</string>
+    <string name="section_prayer">الصلاة</string>
+    <string name="section_azkar">الأذكار والسبحة</string>
+    <string name="section_library">المكتبة الإسلامية</string>
+    <string name="section_calendar">التقويم والمناسبات</string>
+    <string name="section_daily">يومي مع الله</string>
+    <string name="section_favorites">المفضلة والبحث</string>
+
+    <string name="summary_quran">مصحف كامل بـ١١٤ سورة يُبنى على ملف نصّ قرآني موثّق تقدّمه أنت، ويُتحقق منه. لا تُولَّد الآيات بالذكاء الاصطناعي ولا تُكتب من الذاكرة.</string>
+    <string name="summary_memorize">نظام للحفظ والمراجعة: إخفاء الآيات، والتسميع من الذاكرة، والتسميع المباشر بالميكروفون مع تنبيه لطيف عند الاختلاف.</string>
+    <string name="summary_prayer">مواقيت الصلاة، وتسجيل الصلوات الخمس، والاستمرارية، والمنبّه، والقبلة.</string>
+    <string name="summary_azkar">أذكار اليوم والليلة بمصادرها، وسبحة إلكترونية بأهداف وسجل.</string>
+    <string name="summary_library">مكتبة موثّقة المصادر: أحاديث مع درجتها، وقصص الأنبياء والصحابة، والسيرة، وأسماء الله الحسنى.</string>
+    <string name="summary_calendar">تقويم هجري وميلادي، والمناسبات الإسلامية، وتذكيرات الصيام والعبادة.</string>
+    <string name="summary_daily">صفحة العبادات اليومية: أهداف يومية وأسبوعية، وسجل إنجازات، وتحفيز إيجابي.</string>
+    <string name="summary_favorites">مفضلة موحّدة لكل المحتوى، وبحث سريع في جميع الأقسام.</string>
+
+    <string name="section_pending_title">هذا القسم لم يُفعَّل بعد</string>
+    <string name="section_pending_body">يُنفَّذ هذا القسم في المرحلة %1$d. لا نعرض فيه أزراراً أو بيانات شكلية، فلن تجد هنا إلا ما يعمل فعلاً حين يكتمل.</string>
+    <string name="section_features_title">ما سيتضمنه القسم</string>
+
+    <string-array name="features_quran">
+        <item>عرض السور الـ١١٤ وآياتها من مصدر موثّق</item>
+        <item>البحث في النص القرآني</item>
+        <item>التفسير ومعاني الكلمات</item>
+        <item>علامات مرجعية ومفضلة وحفظ آخر موضع قراءة</item>
+        <item>تحديد الأجزاء والأحزاب والصفحات</item>
+        <item>نسخ الآيات ومشاركتها</item>
+        <item>تغيير حجم الخط ووضع القراءة والوضع الليلي</item>
+        <item>مشغّل صوتي بقرّاء متعددين بحسب حقوق المصدر</item>
+    </string-array>
+    <string-array name="features_memorize">
+        <item>إخفاء آية أو عدة آيات أو كلمات عشوائية</item>
+        <item>إكمال الآية وتسميع سورة أو جزء محدد</item>
+        <item>اختبار عشوائي من المحفوظات</item>
+        <item>تسميع مباشر بالميكروفون ومقارنة بالنص القرآني</item>
+        <item>التمييز بين الكلمة الصحيحة والمختلفة وغير المتعرَّف عليها</item>
+        <item>إظهار النتيجة «غير مؤكدة» عند ضعف دقة التعرف بدل اتهامك بالخطأ</item>
+        <item>لوحة الحفظ والمراجعة الذكية وجدولة التذكير</item>
+    </string-array>
+    <string-array name="features_prayer">
+        <item>حساب مواقيت الصلاة بطرق حساب قابلة للاختيار</item>
+        <item>تحديد الموقع بإذنك أو اختيار المدينة يدوياً</item>
+        <item>منبّه وإشعار لكل صلاة وتذكير اختياري قبلها</item>
+        <item>تسجيل الصلوات الخمس يومياً وتصحيح التسجيل</item>
+        <item>نظام استمرارية بقواعد واضحة وبلا تخويف أو تأنيب</item>
+        <item>سجل يومي وأسبوعي وشهري وتقويم للمحافظة</item>
+        <item>بوصلة القبلة وزاويتها</item>
+    </string-array>
+    <string-array name="features_azkar">
+        <item>أذكار الصباح والمساء والنوم والاستيقاظ وبعد الصلاة</item>
+        <item>أذكار الطعام والدخول والخروج والأدعية</item>
+        <item>لكل ذكر: النص وعدد التكرار والمصدر والمفضلة</item>
+        <item>سبحة بعدّاد كبير واهتزاز وصوت اختياريين</item>
+        <item>أهداف تسبيح قابلة للتخصيص وسجل تسبيحات</item>
+    </string-array>
+    <string-array name="features_library">
+        <item>الأحاديث النبوية مع المصدر ودرجة الحديث</item>
+        <item>قصص الأنبياء وقصص الصحابة</item>
+        <item>السيرة النبوية والتاريخ الإسلامي</item>
+        <item>أسماء الله الحسنى وشرحها</item>
+        <item>دروس وعبر وأحكام إسلامية أساسية</item>
+    </string-array>
+    <string-array name="features_calendar">
+        <item>التقويم الهجري والميلادي</item>
+        <item>المناسبات الإسلامية وتذكيرات الصيام</item>
+        <item>إشعارات الصلاة والحفظ والأذكار وآية اليوم</item>
+    </string-array>
+    <string-array name="features_daily">
+        <item>الصلوات وقراءة القرآن والحفظ والأذكار</item>
+        <item>الاستغفار والتسبيح والصدقة والأعمال الصالحة</item>
+        <item>أهداف يومية وأسبوعية قابلة للتخصيص</item>
+        <item>سجل إنجازات وإحصائيات وتذكيرات</item>
+    </string-array>
+    <string-array name="features_favorites">
+        <item>مفضلة موحّدة للآيات والأحاديث والأذكار والأدعية والقصص</item>
+        <item>حفظ مواضع الحفظ</item>
+        <item>بحث سريع في جميع الأقسام</item>
+    </string-array>
+
+    <!-- الرئيسية -->
+    <string name="greeting_morning">صباح الخير</string>
+    <string name="greeting_evening">مساء الخير</string>
+    <string name="greeting_with_name">%1$s يا %2$s</string>
+    <string name="home_salam">السلام عليكم ورحمة الله</string>
+    <string name="hijri_suffix">هـ</string>
+    <string name="home_next_prayer">الصلاة القادمة</string>
+    <string name="home_next_prayer_body">سيظهر هنا وقت الصلاة القادمة والعدّ التنازلي بعد تفعيل نظام الصلاة وضبط موقعك.</string>
+    <string name="home_prayer_times">مواقيت الصلوات</string>
+    <string name="home_prayer_times_note">تُحسب المواقيت بعد ضبط الموقع في مرحلة الصلاة.</string>
+    <string name="prayer_fajr">الفجر</string>
+    <string name="prayer_dhuhr">الظهر</string>
+    <string name="prayer_asr">العصر</string>
+    <string name="prayer_maghrib">المغرب</string>
+    <string name="prayer_isha">العشاء</string>
+    <string name="home_verse_title">آية اليوم</string>
+    <string name="home_verse_body">ستُعرض الآية من مصحف موثّق بعد إضافة ملف النص القرآني. لن تُكتب الآيات من الذاكرة ولن تُولَّد آلياً.</string>
+    <string name="home_dhikr_title">ذكر اليوم</string>
+    <string name="home_dhikr_body">سيُعرض الذكر مع مصدره بعد إضافة ملف الأذكار الموثّق.</string>
+    <string name="home_progress_title">إنجاز العبادات اليوم</string>
+    <string name="home_progress_body">تظهر النسبة بعد تفعيل تسجيل الصلاة والأذكار. لا نعرض نسبة قبل أن تكون مبنية على بيانات حقيقية.</string>
+    <string name="home_continue_title">متابعة القراءة والحفظ</string>
+    <string name="home_continue_body">سيظهر هنا آخر موضع قراءة وآخر موضع حفظ حين يتوفر المصحف.</string>
+    <string name="home_achievements_title">لوحة الإنجازات</string>
+    <string name="home_achievements_body">الشارات والاستمرارية تُحتسب من تسجيلك الفعلي للصلاة، وتُفعَّل في مرحلة الصلاة.</string>
+    <string name="home_sections_title">الأقسام</string>
+
+    <!-- المزيد -->
+    <string name="more_title">المزيد</string>
+    <string name="more_sections_header">الأقسام</string>
+    <string name="more_app_header">التطبيق</string>
+
+    <!-- الإعدادات -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_appearance">المظهر</string>
+    <string name="theme_system">حسب النظام</string>
+    <string name="theme_light">نهاري</string>
+    <string name="theme_dark">ليلي</string>
+    <string name="settings_font_size">حجم الخط</string>
+    <string name="settings_font_preview">رفيقك اليومي إلى الله</string>
+    <string name="settings_profile">الملف الشخصي</string>
+    <string name="settings_name_label">اسمك (اختياري)</string>
+    <string name="settings_name_hint">يُحفظ على جهازك فقط ويُستخدم في التحية.</string>
+    <string name="settings_name_saved">تم حفظ الاسم</string>
+    <string name="settings_data">بياناتك</string>
+    <string name="settings_data_body">كل ما يحفظه التطبيق موجود على جهازك فقط. يمكنك حذفه كاملاً في أي وقت.</string>
+    <string name="settings_delete_all">حذف جميع بيانات التطبيق</string>
+    <string name="settings_delete_title">حذف جميع البيانات؟</string>
+    <string name="settings_delete_body">سيُحذف اسمك وتفضيلات المظهر وحجم الخط وكل ما سُجّل في التطبيق. لا يمكن التراجع عن ذلك.</string>
+    <string name="settings_deleted">تم حذف البيانات</string>
+    <string name="settings_more_note">ستُضاف إعدادات كل ميزة (الصلاة، الحفظ، الميكروفون، النسخ الاحتياطي) مع مرحلتها، فلا نعرض هنا إعدادات لا تعمل بعد.</string>
+
+    <!-- الخصوصية -->
+    <string name="privacy_title">سياسة الخصوصية</string>
+    <string name="privacy_intro">نُور يحترم خصوصيتك. هذه السياسة تصف الوضع الحالي للتطبيق، وستُحدَّث مع كل ميزة جديدة.</string>
+    <string name="privacy_s1_title">ما الذي يحفظه التطبيق؟</string>
+    <string name="privacy_s1_body">في هذه المرحلة: الاسم الذي تكتبه (اختياري)، وتفضيلات المظهر وحجم الخط. وفي المراحل القادمة: سجل الصلاة، والعلامات المرجعية، والمفضلة، ونتائج الحفظ. كلها تُخزَّن على جهازك فقط.</string>
+    <string name="privacy_s2_title">الإنترنت</string>
+    <string name="privacy_s2_body">لا يرسل التطبيق بياناتك إلى أي خادم. وأي ميزة قد تحتاج إلى شبكة، مثل تنزيل التلاوات أو بعض محركات التعرف الصوتي، سيُعلمك بها قبل استخدامها.</string>
+    <string name="privacy_s3_title">الميكروفون</string>
+    <string name="privacy_s3_body">لن يطلب التطبيق إذن الميكروفون إلا حين تبدأ التسميع، مع توضيح سبب الطلب. لا يسجّل صوتك ولا يرفعه ولا يحتفظ به دون موافقتك الصريحة. وقد يرسل بعض أجهزة أندرويد الصوت إلى خدمة التعرف الصوتي ما لم تُنزَّل حزمة اللغة العربية للعمل دون اتصال، وسيوضح التطبيق ذلك عند تفعيل التسميع.</string>
+    <string name="privacy_s4_title">الموقع</string>
+    <string name="privacy_s4_body">يُستخدم لحساب مواقيت الصلاة والقبلة فقط وبإذنك، ويمكنك اختيار المدينة يدوياً بدلاً من ذلك.</string>
+    <string name="privacy_s5_title">حذف بياناتك</string>
+    <string name="privacy_s5_body">من الإعدادات يمكنك حذف جميع بيانات التطبيق في أي وقت.</string>
+
+    <!-- حول -->
+    <string name="about_title">عن التطبيق</string>
+    <string name="about_version">الإصدار %1$s</string>
+    <string name="about_status_title">حالة التطوير</string>
+    <string name="about_status_body">اكتملت المرحلة الأولى: الهوية، والتنقل، والصفحة الرئيسية، والإعدادات، وسياسة الخصوصية. بقية الأقسام تظهر بحالتها الحقيقية «قيد التطوير» إلى أن تُنفَّذ.</string>
+    <string name="about_sources_title">التزام المصادر</string>
+    <string name="about_sources_body">لا تُولَّد الآيات ولا الأحاديث ولا الأذكار آلياً. يُدرَج كل نص ديني من ملف مصدر موثّق مع بيان المصدر، ويُذكر درجة الحديث عند الحاجة.</string>
+</resources>
