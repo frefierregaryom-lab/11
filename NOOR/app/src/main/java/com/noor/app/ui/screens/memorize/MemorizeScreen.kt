@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -130,8 +131,8 @@ fun MemorizeScreen(onBack: () -> Unit) {
                     if (!started) {
                         Button(
                             onClick = { started = true; completedPages = 0 },
-                            enabled = surah.isNotBlank() && fromPage.toIntOrNull() in 1..604 &&
-                                toPage.toIntOrNull() in start..604,
+                            enabled = surah.isNotBlank() && (fromPage.toIntOrNull() ?: 0) in 1..604 &&
+                                (toPage.toIntOrNull() ?: 0) in start..604,
                             modifier = Modifier.fillMaxWidth()
                         ) { Text(stringResource(R.string.memorize_start)) }
                     } else {
