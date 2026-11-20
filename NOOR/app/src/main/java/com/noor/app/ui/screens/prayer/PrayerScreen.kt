@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +35,12 @@ import java.util.Locale
 
 @Composable
 fun PrayerScreen() {
+    val context = LocalContext.current
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
+    val progressPrefs = remember { context.getSharedPreferences("prayer_checkins", android.content.Context.MODE_PRIVATE) }
+    var completed by remember(selectedDate) {
+        mutableStateOf(progressPrefs.getStringSet(selectedDate.toString(), emptySet())?.toSet() ?: emptySet())
+    }
     val times = remember(selectedDate) { PrayerTimesCalculator.calculate(selectedDate) }
     val today = selectedDate == LocalDate.now()
     val now = LocalTime.now()
@@ -90,6 +97,13 @@ fun PrayerScreen() {
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween) {
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Checkbox(
+                                    checked = item.first in completed,
+                                    onCheckedChange = { checked ->
+                                        completed = if (checked) completed + item.first else completed - item.first
+                                        progressPrefs.edit().putStringSet(selectedDate.toString(), completed.toSet()).apply()
+                                    }
+                                )
                                 Text(item.third, style = MaterialTheme.typography.titleLarge)
                                 Text(item.first, style = MaterialTheme.typography.titleMedium,
                                     color = if (isNext) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
@@ -107,6 +121,7 @@ fun PrayerScreen() {
                     }
                 }
             }
+            Text("أُنجزت ${completed.size} من ٥ صلوات في هذا اليوم", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             Text("طريقة الحساب: رابطة العالم الإسلامي، والمذهب الشافعي للعصر. قد تختلف المواقيت دقائق عن التقويم المحلي المعتمد؛ يُرجى مطابقتها مع مسجدك.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
