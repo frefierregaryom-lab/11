@@ -2,7 +2,11 @@ package com.noor.app.ui.screens.quran
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -283,23 +287,48 @@ fun QuranScreen() {
                         }
                     }
                     else -> {
-                        LazyColumn(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            items(
-                                pageVerses,
-                                key = { "${it.surahNumber}:${it.verseNumber}" }
-                            ) { reference ->
-                                val verse = verseLookup[reference.surahNumber to reference.verseNumber]
-                                if (verse != null) {
-                                    VerseCard(
-                                        verse.text,
-                                        "${reference.surahName} • ${reference.verseNumber}"
+                        val pageText = pageVerses.mapNotNull { reference ->
+                            verseLookup[reference.surahNumber to reference.verseNumber]?.let { verse ->
+                                verse.text + " ۞"
+                            }
+                        }.joinToString("  ")
+                        Card(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                                .pointerInput(page) {
+                                    var drag = 0f
+                                    detectHorizontalDragGestures(
+                                        onHorizontalDrag = { _, amount -> drag += amount },
+                                        onDragEnd = {
+                                            if (drag > 70f && page > 1) selectedPage = page - 1
+                                            else if (drag < -70f && page < 604) selectedPage = page + 1
+                                            drag = 0f
+                                        }
                                     )
-                                }
+                                },
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                        ) {
+                            Column(
+                                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = pageText,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    textAlign = TextAlign.Justify,
+                                    lineHeight = MaterialTheme.typography.headlineSmall.lineHeight * 1.8
+                                )
                             }
                         }
+                        Text(
+                            "اسحب يمينًا أو يسارًا لتقليب الصفحة",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
             }
