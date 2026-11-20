@@ -15,40 +15,43 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.noor.app.R
+import com.noor.app.data.memorize.MemorizeProgress
+import com.noor.app.data.memorize.MemorizeRepository
 import com.noor.app.ui.components.NoorCard
 import com.noor.app.ui.components.ScreenScaffold
 import com.noor.app.ui.components.SectionTitle
+import kotlinx.coroutines.launch
 
 private enum class MemorizeMode { NEW, REVIEW, TASMI }
 
 @Composable
 fun MemorizeScreen(onBack: () -> Unit) {
-    var mode by rememberSaveable { mutableStateOf(MemorizeMode.NEW.name) }
-    var surah by rememberSaveable { mutableStateOf("") }
-    var fromPage by rememberSaveable { mutableStateOf("1") }
-    var toPage by rememberSaveable { mutableStateOf("1") }
-    var started by rememberSaveable { mutableStateOf(false) }
-    var completedPages by rememberSaveable { mutableIntStateOf(0) }
+    val context = LocalContext.current
+    val repository = remember(context) { MemorizeRepository(context) }
+    val progress by repository.progress.collectAsState(initial = MemorizeProgress())
+    val scope = rememberCoroutineScope()
+    fun save(value: MemorizeProgress) { scope.launch { repository.save(value) } }
 
-    val start = fromPage.toIntOrNull()?.coerceAtLeast(1) ?: 1
-    val end = toPage.toIntOrNull()?.coerceAtLeast(start) ?: start
-    val totalPages = (end - start + 1).coerceAtMost(604)
-    val progress = (completedPages.toFloat() / totalPages.coerceAtLeast(1)).coerceIn(0f, 1f)
+    val start = progress.fromPage.toIntOrNull() ?: 0
+    val end = progress.toPage.toIntOrNull() ?: 0
+    val validPages = start in 1..604 && end in start..604
+    val totalPages = if (validPages) end - start + 1 else 1
+    val completed = progress.completedPages.coerceIn(0, totalPages)
+    val fraction = completed.toFloat() / totalPages
 
     ScreenScaffold(
         title = stringResource(R.string.section_memorize),
@@ -75,18 +78,18 @@ fun MemorizeScreen(onBack: () -> Unit) {
             SectionTitle(stringResource(R.string.memorize_mode_title))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(
-                    selected = mode == MemorizeMode.NEW.name,
-                    onClick = { if (!started) mode = MemorizeMode.NEW.name },
+                    selected = progress.mode == MemorizeMode.NEW.name,
+                    onClick = { if (!progress.started) save(progress.copy(mode = MemorizeMode.NEW.name)) },
                     label = { Text(stringResource(R.string.memorize_mode_new)) }
                 )
                 FilterChip(
-                    selected = mode == MemorizeMode.REVIEW.name,
-                    onClick = { if (!started) mode = MemorizeMode.REVIEW.name },
+                    selected = progress.mode == MemorizeMode.REVIEW.name,
+                    onClick = { if (!progress.started) save(progress.copy(mode = MemorizeMode.REVIEW.name)) },
                     label = { Text(stringResource(R.string.memorize_mode_review)) }
                 )
                 FilterChip(
-                    selected = mode == MemorizeMode.TASMI.name,
-                    onClick = { if (!started) mode = MemorizeMode.TASMI.name },
+                    selected = progress.mode == MemorizeMode.TASMI.name,
+                    onClick = { if (!progress.started) save(progress.copy(mode = MemorizeMode.TASMI.name)) },
                     label = { Text(stringResource(R.string.memorize_mode_tasmi)) }
                 )
             }
@@ -95,32 +98,32 @@ fun MemorizeScreen(onBack: () -> Unit) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(stringResource(R.string.memorize_plan_title), style = MaterialTheme.typography.titleMedium)
                     OutlinedTextField(
-                        value = surah,
-                        onValueChange = { if (!started) surah = it.take(40) },
+                        value = progress.surah,
+                        onValueChange = { if (!progress.started) save(progress.copy(surah = it.take(40))) },
                         modifier = Modifier.fillMaxWidth(),
                         label = { Text(stringResource(R.string.memorize_surah_label)) },
                         placeholder = { Text(stringResource(R.string.memorize_surah_hint)) },
                         singleLine = true,
-                        enabled = !started
+                        enabled = !progress.started
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         OutlinedTextField(
-                            value = fromPage,
-                            onValueChange = { if (!started) fromPage = it.filter(Char::isDigit).take(3) },
+                            value = progress.fromPage,
+                            onValueChange = { if (!progress.started) save(progress.copy(fromPage = it.filter(Char::isDigit).take(3))) },
                             modifier = Modifier.weight(1f),
                             label = { Text(stringResource(R.string.memorize_from_page)) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             singleLine = true,
-                            enabled = !started
+                            enabled = !progress.started
                         )
                         OutlinedTextField(
-                            value = toPage,
-                            onValueChange = { if (!started) toPage = it.filter(Char::isDigit).take(3) },
+                            value = progress.toPage,
+                            onValueChange = { if (!progress.started) save(progress.copy(toPage = it.filter(Char::isDigit).take(3))) },
                             modifier = Modifier.weight(1f),
                             label = { Text(stringResource(R.string.memorize_to_page)) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             singleLine = true,
-                            enabled = !started
+                            enabled = !progress.started
                         )
                     }
                     Text(
@@ -128,31 +131,30 @@ fun MemorizeScreen(onBack: () -> Unit) {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    if (!started) {
+                    if (!progress.started) {
                         Button(
-                            onClick = { started = true; completedPages = 0 },
-                            enabled = surah.isNotBlank() && (fromPage.toIntOrNull() ?: 0) in 1..604 &&
-                                (toPage.toIntOrNull() ?: 0) in start..604,
+                            onClick = { save(progress.copy(started = true, completedPages = 0)) },
+                            enabled = progress.surah.isNotBlank() && validPages,
                             modifier = Modifier.fillMaxWidth()
                         ) { Text(stringResource(R.string.memorize_start)) }
                     } else {
                         Text(
-                            stringResource(R.string.memorize_session_active, surah),
+                            stringResource(R.string.memorize_session_active, progress.surah),
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary
                         )
-                        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
+                        LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth())
                         Text(
-                            stringResource(R.string.memorize_progress, completedPages, totalPages),
+                            stringResource(R.string.memorize_progress, completed, totalPages),
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Button(
-                            onClick = { completedPages = (completedPages + 1).coerceAtMost(totalPages) },
-                            enabled = completedPages < totalPages,
+                            onClick = { save(progress.copy(completedPages = (completed + 1).coerceAtMost(totalPages))) },
+                            enabled = completed < totalPages,
                             modifier = Modifier.fillMaxWidth()
                         ) { Text(stringResource(R.string.memorize_page_done)) }
                         OutlinedButton(
-                            onClick = { started = false },
+                            onClick = { save(progress.copy(started = false)) },
                             modifier = Modifier.fillMaxWidth()
                         ) { Text(stringResource(R.string.memorize_finish)) }
                     }
