@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -60,6 +61,11 @@ fun HomeScreen(
     val context = LocalContext.current
     val prayerPrefs = remember { context.getSharedPreferences("prayer_checkins", Context.MODE_PRIVATE) }
     var refresh by remember { mutableStateOf(0) }
+    DisposableEffect(prayerPrefs) {
+        val listener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> refresh++ }
+        prayerPrefs.registerOnSharedPreferenceChangeListener(listener)
+        onDispose { prayerPrefs.unregisterOnSharedPreferenceChangeListener(listener) }
+    }
     val streak = remember(refresh) { calculatePrayerStreak(prayerPrefs, LocalDate.now()) }
     val bestStreak = remember(refresh) { maxOf(prayerPrefs.getInt("best_streak", 0), streak).also {
         if (it > prayerPrefs.getInt("best_streak", 0)) prayerPrefs.edit().putInt("best_streak", it).apply()
