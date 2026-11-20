@@ -34,7 +34,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @Composable
-fun PrayerScreen() {
+fun PrayerScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     val progressPrefs = remember { context.getSharedPreferences("prayer_checkins", android.content.Context.MODE_PRIVATE) }
@@ -53,7 +53,7 @@ fun PrayerScreen() {
     )
     val nextPrayer = if (today) prayers.firstOrNull { it.second.isAfter(now) } else null
 
-    ScreenScaffold(title = stringResource(R.string.section_prayer), hasBottomBar = true) { padding ->
+    ScreenScaffold(title = stringResource(R.string.section_prayer), onBack = onBack, hasBottomBar = true) { padding ->
         Column(
             modifier = Modifier.padding(padding).verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 10.dp),
