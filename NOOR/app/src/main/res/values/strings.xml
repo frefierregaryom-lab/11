@@ -173,4 +173,26 @@
     <string name="about_status_body">اكتملت المرحلة الأولى: الهوية، والتنقل، والصفحة الرئيسية، والإعدادات، وسياسة الخصوصية. بقية الأقسام تظهر بحالتها الحقيقية «قيد التطوير» إلى أن تُنفَّذ.</string>
     <string name="about_sources_title">التزام المصادر</string>
     <string name="about_sources_body">لا تُولَّد الآيات ولا الأحاديث ولا الأذكار آلياً. يُدرَج كل نص ديني من ملف مصدر موثّق مع بيان المصدر، ويُذكر درجة الحديث عند الحاجة.</string>
+
+    <!-- الحفظ والتسميع -->
+    <string name="memorize_intro_title">ابدأ رحلتك مع حفظ القرآن</string>
+    <string name="memorize_intro_body">اختر نوع الجلسة وحدد نطاق الصفحات، ثم سجّل تقدمك بهدوء. خطتك الحالية تُدار داخل هذه الجلسة.</string>
+    <string name="memorize_mode_title">نوع الجلسة</string>
+    <string name="memorize_mode_new">حفظ جديد</string>
+    <string name="memorize_mode_review">مراجعة</string>
+    <string name="memorize_mode_tasmi">تسميع</string>
+    <string name="memorize_plan_title">خطة الجلسة</string>
+    <string name="memorize_surah_label">اسم السورة أو المقطع</string>
+    <string name="memorize_surah_hint">مثال: سورة البقرة</string>
+    <string name="memorize_from_page">من صفحة</string>
+    <string name="memorize_to_page">إلى صفحة</string>
+    <string name="memorize_pages_count">عدد الصفحات: %1$d</string>
+    <string name="memorize_start">ابدأ الجلسة</string>
+    <string name="memorize_session_active">الجلسة الحالية: %1$s</string>
+    <string name="memorize_progress">أنجزت %1$d من %2$d صفحة</string>
+    <string name="memorize_page_done">أنهيت صفحة</string>
+    <string name="memorize_finish">إنهاء الجلسة</string>
+    <string name="memorize_tasmi_note_title">التسميع الصوتي</string>
+    <string name="memorize_tasmi_note_body">سنضيف الاستماع بالميكروفون ومقارنة التلاوة بنص قرآني موثّق في الخطوة التالية. لن نعطي حكماً على صحة التلاوة قبل تجهيز مصدر موثوق وآلية تعرف مناسبة.</string>
+
 </resources>
