@@ -45,7 +45,7 @@
     <string name="quran_loading">جارٍ تحميل نص المصحف والتحقق من عدد الآيات...</string>
     <string name="quran_load_error">تعذر تحميل المصحف أو لم يجتز الملف فحص سلامة الآيات. تحقق من اتصال الإنترنت ثم أعد المحاولة.</string>
     <string name="quran_retry">إعادة المحاولة</string>
-    <string name="quran_source_notice">النص العثماني: مشروع تنزيل Tanzil، الإصدار 1.1. يُعرض كما ورد دون تغيير. المصدر: tanzil.net</string>
+    <string name="quran_source_notice">النص العثماني: مشروع تنزيل Tanzil، الإصدار 1.1، ويُعرض دون تغيير. بيانات تقسيم الصفحات من خدمة AlQuran Cloud. المصدر: tanzil.net</string>
     <string name="summary_quran">مصحف كامل بـ١١٤ سورة يُبنى على ملف نصّ قرآني موثّق تقدّمه أنت، ويُتحقق منه. لا تُولَّد الآيات بالذكاء الاصطناعي ولا تُكتب من الذاكرة.</string>
     <string name="summary_memorize">نظام للحفظ والمراجعة: إخفاء الآيات، والتسميع من الذاكرة، والتسميع المباشر بالميكروفون مع تنبيه لطيف عند الاختلاف.</string>
     <string name="summary_prayer">مواقيت الصلاة، وتسجيل الصلوات الخمس، والاستمرارية، والمنبّه، والقبلة.</string>
