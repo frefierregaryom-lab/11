@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.noor.app.R
 import com.noor.app.domain.ArabicDates
+import com.noor.app.domain.PrayerTimesCalculator
 import com.noor.app.ui.components.IconBadge
 import com.noor.app.ui.components.IslamicPattern
 import com.noor.app.ui.components.NoorCard
@@ -43,6 +44,8 @@ import com.noor.app.ui.theme.Gold400
 import com.noor.app.ui.theme.Gold500
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.util.Locale
 
 @Composable
 fun HomeScreen(
@@ -69,7 +72,7 @@ fun HomeScreen(
                 onClick = { onOpenSection(Section.PRAYER) }
             )
 
-            PrayerTimesPreview(onClick = { onOpenSection(Section.PRAYER) })
+            PrayerTimesPreview(today = today, onClick = { onOpenSection(Section.PRAYER) })
 
             PendingCard(
                 icon = Section.QURAN,
@@ -210,27 +213,43 @@ private fun PendingCard(icon: Section, title: String, body: String, onClick: () 
 }
 
 @Composable
-private fun PrayerTimesPreview(onClick: () -> Unit) {
-    val names = listOf(
-        R.string.prayer_fajr, R.string.prayer_dhuhr, R.string.prayer_asr,
-        R.string.prayer_maghrib, R.string.prayer_isha
+private fun PrayerTimesPreview(today: LocalDate, onClick: () -> Unit) {
+    val times = remember(today) { PrayerTimesCalculator.calculate(today) }
+    val prayers = listOf(
+        R.string.prayer_fajr to times.fajr,
+        R.string.prayer_dhuhr to times.dhuhr,
+        R.string.prayer_asr to times.asr,
+        R.string.prayer_maghrib to times.maghrib,
+        R.string.prayer_isha to times.isha
     )
     NoorCard(modifier = Modifier.fillMaxWidth(), onClick = onClick) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(stringResource(R.string.home_prayer_times), style = MaterialTheme.typography.titleMedium)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                names.forEach { n ->
-                    Text(
-                        stringResource(n),
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                prayers.forEach { (name, time) ->
+                    Column(
                         modifier = Modifier.weight(1f),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                    ) {
+                        Text(
+                            stringResource(name),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            ArabicDates.toArabicDigits(
+                                String.format(Locale.US, "%02d:%02d", time.hour, time.minute)
+                            ),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
                 }
             }
             Text(
-                stringResource(R.string.home_prayer_times_note),
+                PrayerTimesCalculator.DEFAULT_CITY,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
