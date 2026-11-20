@@ -128,9 +128,9 @@ fun NoorApp(settingsViewModel: SettingsViewModel) {
                     } else if (section == Section.QURAN) {
                         QuranScreen()
                     } else if (section == Section.PRAYER) {
-                        PrayerScreen()
+                        PrayerScreen(onBack = { navController.popBackStack() })
                     } else if (section == Section.CALENDAR) {
-                        CalendarScreen()
+                        CalendarScreen(onBack = { navController.popBackStack() })
                     } else {
                         val top = section.route in Routes.topLevel
                         SectionScreen(
