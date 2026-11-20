@@ -38,6 +38,7 @@ import com.noor.app.ui.screens.about.AboutScreen
 import com.noor.app.ui.screens.home.HomeScreen
 import com.noor.app.ui.screens.more.MoreScreen
 import com.noor.app.ui.screens.memorize.MemorizeScreen
+import com.noor.app.ui.screens.prayer.PrayerScreen
 import com.noor.app.ui.screens.privacy.PrivacyScreen
 import com.noor.app.ui.screens.quran.QuranScreen
 import com.noor.app.ui.screens.section.SectionScreen
@@ -125,6 +126,8 @@ fun NoorApp(settingsViewModel: SettingsViewModel) {
                         MemorizeScreen(onBack = { navController.popBackStack() })
                     } else if (section == Section.QURAN) {
                         QuranScreen()
+                    } else if (section == Section.PRAYER) {
+                        PrayerScreen()
                     } else {
                         val top = section.route in Routes.topLevel
                         SectionScreen(
