@@ -32,6 +32,15 @@
     <string name="quran_search_hint">ابحث باسم السورة أو رقمها</string>
     <string name="quran_surah_count">عدد النتائج: %1$d</string>
     <string name="quran_back_to_surahs">العودة إلى قائمة السور</string>
+    <string name="quran_surahs_tab">السور</string>
+    <string name="quran_pages_tab">صفحات المصحف</string>
+    <string name="quran_pages_intro">اختر صفحة من صفحات المصحف المدني، وعددها ٦٠٤ صفحات.</string>
+    <string name="quran_page_number">الصفحة %1$d من ٦٠٤</string>
+    <string name="quran_back_to_pages">العودة إلى الصفحات</string>
+    <string name="quran_previous_page">السابقة</string>
+    <string name="quran_next_page">التالية</string>
+    <string name="quran_page_loading">جارٍ تجهيز تقسيم الصفحة...</string>
+    <string name="quran_page_error">تعذر تحميل بيانات تقسيم الصفحة. تحقق من الإنترنت وأعد المحاولة.</string>
     <string name="quran_selected_surah">السورة %1$d: %2$s</string>
     <string name="quran_loading">جارٍ تحميل نص المصحف والتحقق من عدد الآيات...</string>
     <string name="quran_load_error">تعذر تحميل المصحف أو لم يجتز الملف فحص سلامة الآيات. تحقق من اتصال الإنترنت ثم أعد المحاولة.</string>
