@@ -192,6 +192,10 @@
     <string name="memorize_progress">أنجزت %1$d من %2$d صفحة</string>
     <string name="memorize_page_done">أنهيت صفحة</string>
     <string name="memorize_finish">إنهاء الجلسة</string>
+    <string name="memorize_daily_goal_title">هدف الحفظ اليومي</string>
+    <string name="memorize_daily_goal_progress">أنجزت اليوم %1$d من %2$d صفحة</string>
+    <string name="memorize_goal_decrease">تقليل الهدف</string>
+    <string name="memorize_goal_increase">زيادة الهدف</string>
     <string name="memorize_tasmi_note_title">التسميع الصوتي</string>
     <string name="memorize_tasmi_note_body">سنضيف الاستماع بالميكروفون ومقارنة التلاوة بنص قرآني موثّق في الخطوة التالية. لن نعطي حكماً على صحة التلاوة قبل تجهيز مصدر موثوق وآلية تعرف مناسبة.</string>
 
