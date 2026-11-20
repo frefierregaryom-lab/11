@@ -1,7 +1,9 @@
+
 package com.noor.app.ui.screens.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,8 +32,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.noor.app.R
@@ -50,8 +52,12 @@ fun SettingsScreen(viewModel: SettingsViewModel, onBack: () -> Unit) {
     val savedMsg = stringResource(R.string.settings_name_saved)
     val deletedMsg = stringResource(R.string.settings_deleted)
 
-    var nameField by rememberSaveable(settings.userName) { mutableStateOf(settings.userName) }
-    var sliderValue by remember(settings.fontScale) { mutableFloatStateOf(settings.fontScale) }
+    var nameField by rememberSaveable(settings.userName) {
+        mutableStateOf(settings.userName)
+    }
+    var sliderValue by remember(settings.fontScale) {
+        mutableFloatStateOf(settings.fontScale)
+    }
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
 
     ScreenScaffold(
@@ -66,18 +72,38 @@ fun SettingsScreen(viewModel: SettingsViewModel, onBack: () -> Unit) {
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
+
             // المظهر
             SectionTitle(stringResource(R.string.settings_appearance))
-            NoorCard(Modifier.fillMaxWidth(), contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 6.dp, horizontal = 8.dp)) {
+
+            NoorCard(
+                Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(vertical = 6.dp, horizontal = 8.dp)
+            ) {
                 Column {
-                    ThemeOption(R.string.theme_system, ThemeMode.SYSTEM, settings.themeMode) { viewModel.setThemeMode(it) }
-                    ThemeOption(R.string.theme_light, ThemeMode.LIGHT, settings.themeMode) { viewModel.setThemeMode(it) }
-                    ThemeOption(R.string.theme_dark, ThemeMode.DARK, settings.themeMode) { viewModel.setThemeMode(it) }
+                    ThemeOption(
+                        R.string.theme_system,
+                        ThemeMode.SYSTEM,
+                        settings.themeMode
+                    ) { viewModel.setThemeMode(it) }
+
+                    ThemeOption(
+                        R.string.theme_light,
+                        ThemeMode.LIGHT,
+                        settings.themeMode
+                    ) { viewModel.setThemeMode(it) }
+
+                    ThemeOption(
+                        R.string.theme_dark,
+                        ThemeMode.DARK,
+                        settings.themeMode
+                    ) { viewModel.setThemeMode(it) }
                 }
             }
 
             // حجم الخط
             SectionTitle(stringResource(R.string.settings_font_size))
+
             NoorCard(Modifier.fillMaxWidth()) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
@@ -85,44 +111,63 @@ fun SettingsScreen(viewModel: SettingsViewModel, onBack: () -> Unit) {
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
+
                     Slider(
                         value = sliderValue,
                         onValueChange = { sliderValue = it },
-                        onValueChangeFinished = { viewModel.setFontScale(sliderValue) },
+                        onValueChangeFinished = {
+                            viewModel.setFontScale(sliderValue)
+                        },
                         valueRange = AppSettings.MIN_FONT_SCALE..AppSettings.MAX_FONT_SCALE
                     )
+
                     TextButton(
                         onClick = {
                             sliderValue = AppSettings.DEFAULT_FONT_SCALE
                             viewModel.setFontScale(AppSettings.DEFAULT_FONT_SCALE)
                         }
-                    ) { Text(stringResource(R.string.reset)) }
+                    ) {
+                        Text(stringResource(R.string.reset))
+                    }
                 }
             }
 
             // الملف الشخصي
             SectionTitle(stringResource(R.string.settings_profile))
+
             NoorCard(Modifier.fillMaxWidth()) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(
                         value = nameField,
-                        onValueChange = { nameField = it.take(AppSettings.MAX_NAME_LENGTH) },
+                        onValueChange = {
+                            nameField = it.take(AppSettings.MAX_NAME_LENGTH)
+                        },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text(stringResource(R.string.settings_name_label)) },
-                        supportingText = { Text(stringResource(R.string.settings_name_hint)) },
+                        label = {
+                            Text(stringResource(R.string.settings_name_label))
+                        },
+                        supportingText = {
+                            Text(stringResource(R.string.settings_name_hint))
+                        },
                         singleLine = true
                     )
+
                     Button(
                         onClick = {
-                            viewModel.setUserName(nameField)
-                            scope.launch { snackbar.showSnackbar(savedMsg) }
+                            scope.launch {
+                                viewModel.setUserName(nameField).join()
+                                snackbar.showSnackbar(savedMsg)
+                            }
                         }
-                    ) { Text(stringResource(R.string.save)) }
+                    ) {
+                        Text(stringResource(R.string.save))
+                    }
                 }
             }
 
             // البيانات
             SectionTitle(stringResource(R.string.settings_data))
+
             NoorCard(Modifier.fillMaxWidth()) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
@@ -130,8 +175,14 @@ fun SettingsScreen(viewModel: SettingsViewModel, onBack: () -> Unit) {
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    OutlinedButton(onClick = { confirmDelete = true }) {
-                        Text(stringResource(R.string.settings_delete_all), color = MaterialTheme.colorScheme.error)
+
+                    OutlinedButton(
+                        onClick = { confirmDelete = true }
+                    ) {
+                        Text(
+                            stringResource(R.string.settings_delete_all),
+                            color = MaterialTheme.colorScheme.error
+                        )
                     }
                 }
             }
@@ -141,24 +192,41 @@ fun SettingsScreen(viewModel: SettingsViewModel, onBack: () -> Unit) {
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+
             Spacer(Modifier.height(16.dp))
         }
     }
 
+    // تأكيد الحذف
     if (confirmDelete) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text(stringResource(R.string.settings_delete_title)) },
-            text = { Text(stringResource(R.string.settings_delete_body)) },
+            title = {
+                Text(stringResource(R.string.settings_delete_title))
+            },
+            text = {
+                Text(stringResource(R.string.settings_delete_body))
+            },
             confirmButton = {
-                TextButton(onClick = {
-                    confirmDelete = false
-                    viewModel.clearAll()
-                    scope.launch { snackbar.showSnackbar(deletedMsg) }
-                }) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) }
+                TextButton(
+                    onClick = {
+                        confirmDelete = false
+                        scope.launch {
+                            viewModel.clearAll().join()
+                            snackbar.showSnackbar(deletedMsg)
+                        }
+                    }
+                ) {
+                    Text(
+                        stringResource(R.string.delete),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDelete = false }) { Text(stringResource(R.string.cancel)) }
+                TextButton(onClick = { confirmDelete = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
             }
         )
     }
@@ -174,14 +242,26 @@ private fun ThemeOption(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .selectable(selected = current == mode, role = Role.RadioButton, onClick = { onSelect(mode) })
+            .selectable(
+                selected = current == mode,
+                role = Role.RadioButton,
+                onClick = { onSelect(mode) }
+            )
             .padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RadioButton(selected = current == mode, onClick = null)
+        RadioButton(
+            selected = current == mode,
+            onClick = null
+        )
+
         Text(
             stringResource(label),
-            modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
+            modifier = Modifier.padding(
+                start = 12.dp,
+                top = 12.dp,
+                bottom = 12.dp
+            ),
             style = MaterialTheme.typography.bodyLarge
         )
     }
