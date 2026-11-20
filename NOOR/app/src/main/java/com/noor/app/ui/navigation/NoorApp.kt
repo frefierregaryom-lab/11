@@ -35,6 +35,7 @@ import com.noor.app.R
 import com.noor.app.ui.components.NoorIcon
 import com.noor.app.ui.components.NoorIconView
 import com.noor.app.ui.screens.about.AboutScreen
+import com.noor.app.ui.screens.calendar.CalendarScreen
 import com.noor.app.ui.screens.home.HomeScreen
 import com.noor.app.ui.screens.more.MoreScreen
 import com.noor.app.ui.screens.memorize.MemorizeScreen
@@ -128,6 +129,8 @@ fun NoorApp(settingsViewModel: SettingsViewModel) {
                         QuranScreen()
                     } else if (section == Section.PRAYER) {
                         PrayerScreen()
+                    } else if (section == Section.CALENDAR) {
+                        CalendarScreen()
                     } else {
                         val top = section.route in Routes.topLevel
                         SectionScreen(
