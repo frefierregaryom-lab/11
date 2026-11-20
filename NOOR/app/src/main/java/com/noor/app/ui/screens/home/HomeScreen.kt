@@ -17,6 +17,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -52,6 +57,13 @@ fun HomeScreen(
     userName: String,
     onOpenSection: (Section) -> Unit
 ) {
+    val context = LocalContext.current
+    val prayerPrefs = remember { context.getSharedPreferences("prayer_checkins", Context.MODE_PRIVATE) }
+    var refresh by remember { mutableStateOf(0) }
+    val streak = remember(refresh) { calculatePrayerStreak(prayerPrefs, LocalDate.now()) }
+    val bestStreak = remember(refresh) { maxOf(prayerPrefs.getInt("best_streak", 0), streak).also {
+        if (it > prayerPrefs.getInt("best_streak", 0)) prayerPrefs.edit().putInt("best_streak", it).apply()
+    } }
     val now = remember { LocalDateTime.now() }
     val today: LocalDate = now.toLocalDate()
 
@@ -73,6 +85,7 @@ fun HomeScreen(
             )
 
             PrayerTimesPreview(today = today, onClick = { onOpenSection(Section.PRAYER) })
+            FlameStreakCard(streak = streak, best = bestStreak)
 
             PendingCard(
                 icon = Section.QURAN,
@@ -273,4 +286,40 @@ private fun SectionTile(section: Section, modifier: Modifier, onClick: () -> Uni
             )
         }
     }
+}
+
+@Composable
+private fun FlameStreakCard(streak: Int, best: Int) {
+    NoorCard(modifier = Modifier.fillMaxWidth()) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text("شعلتك اليومية", style = MaterialTheme.typography.titleMedium)
+                Text("حافظ على الصلوات الخمس كل يوم", style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("أفضل سلسلة: " + ArabicDates.toArabicDigits(best.toString()) + " يوم",
+                    style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("🔥", style = MaterialTheme.typography.displaySmall)
+                Text(ArabicDates.toArabicDigits(streak.toString()) + " يوم",
+                    style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
+                Text("متتالية", style = MaterialTheme.typography.labelSmall)
+            }
+        }
+    }
+}
+
+private fun calculatePrayerStreak(prefs: android.content.SharedPreferences, today: LocalDate): Int {
+    fun complete(date: LocalDate): Boolean {
+        val set = prefs.getStringSet(date.toString(), emptySet()) ?: emptySet()
+        return set.containsAll(setOf("الفجر", "الظهر", "العصر", "المغرب", "العشاء"))
+    }
+    var cursor = if (complete(today)) today else today.minusDays(1)
+    var count = 0
+    while (count < 3660 && complete(cursor)) {
+        count++
+        cursor = cursor.minusDays(1)
+    }
+    return count
 }
