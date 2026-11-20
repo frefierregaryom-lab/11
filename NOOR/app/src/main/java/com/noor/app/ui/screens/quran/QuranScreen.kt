@@ -221,6 +221,9 @@ fun QuranScreen() {
                     ),
                     style = MaterialTheme.typography.headlineSmall
                 )
+                if (!loading && !error && selectedVerses.isNotEmpty()) {
+                    VoiceTasmiCard(selectedVerses)
+                }
                 when {
                     loading -> {
                         CircularProgressIndicator()
