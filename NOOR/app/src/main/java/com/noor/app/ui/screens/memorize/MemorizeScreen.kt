@@ -74,6 +74,36 @@ fun MemorizeScreen(onBack: () -> Unit) {
                 }
             }
 
+            NoorCard(Modifier.fillMaxWidth()) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text(stringResource(R.string.memorize_daily_goal_title), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        stringResource(
+                            R.string.memorize_daily_goal_progress,
+                            progress.dailyCompleted,
+                            progress.dailyGoal
+                        ),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    LinearProgressIndicator(
+                        progress = {
+                            (progress.dailyCompleted.toFloat() / progress.dailyGoal.coerceAtLeast(1)).coerceIn(0f, 1f)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedButton(
+                            onClick = { save(progress.copy(dailyGoal = (progress.dailyGoal - 1).coerceAtLeast(1))) },
+                            enabled = progress.dailyGoal > 1
+                        ) { Text(stringResource(R.string.memorize_goal_decrease)) }
+                        Button(
+                            onClick = { save(progress.copy(dailyGoal = (progress.dailyGoal + 1).coerceAtMost(20))) },
+                            enabled = progress.dailyGoal < 20
+                        ) { Text(stringResource(R.string.memorize_goal_increase)) }
+                    }
+                }
+            }
+
             SectionTitle(stringResource(R.string.memorize_mode_title))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(
@@ -148,7 +178,14 @@ fun MemorizeScreen(onBack: () -> Unit) {
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Button(
-                            onClick = { save(progress.copy(completedPages = (completed + 1).coerceAtMost(totalPages))) },
+                            onClick = {
+                                save(
+                                    progress.copy(
+                                        completedPages = (completed + 1).coerceAtMost(totalPages),
+                                        dailyCompleted = progress.dailyCompleted + 1
+                                    )
+                                )
+                            },
                             enabled = completed < totalPages,
                             modifier = Modifier.fillMaxWidth()
                         ) { Text(stringResource(R.string.memorize_page_done)) }
