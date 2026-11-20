@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -111,7 +112,10 @@ fun QuranScreen() {
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     items(filtered, key = { it.number }) { surah ->
                         Card(
                             modifier = Modifier.fillMaxWidth(),
@@ -158,7 +162,10 @@ fun QuranScreen() {
                         }
                     }
                     else -> {
-                        LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        LazyColumn(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
                             items(selectedVerses, key = { it.verseNumber }) { verse ->
                                 Card(
                                     modifier = Modifier.fillMaxWidth(),
