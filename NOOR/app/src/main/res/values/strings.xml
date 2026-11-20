@@ -28,6 +28,13 @@
     <string name="section_daily">يومي مع الله</string>
     <string name="section_favorites">المفضلة والبحث</string>
 
+    <string name="quran_directory_intro">اختر سورة لفتحها. فهرس السور جاهز، وسيُضاف نص المصحف من ملف موثوق دون أي تعديل على الآيات.</string>
+    <string name="quran_search_hint">ابحث باسم السورة أو رقمها</string>
+    <string name="quran_surah_count">عدد النتائج: %1$d</string>
+    <string name="quran_back_to_surahs">العودة إلى قائمة السور</string>
+    <string name="quran_selected_surah">السورة %1$d: %2$s</string>
+    <string name="quran_text_pending_title">تجهيز نص المصحف</string>
+    <string name="quran_text_pending_body">لم نُدرج الآيات بعد. سنضيف النص العثماني من مشروع تنزيل (Tanzil) حرفياً بعد التحقق من الملف وإرفاق إشعار المصدر والترخيص، حتى لا نعرض نصاً قرآنياً غير موثّق.</string>
     <string name="summary_quran">مصحف كامل بـ١١٤ سورة يُبنى على ملف نصّ قرآني موثّق تقدّمه أنت، ويُتحقق منه. لا تُولَّد الآيات بالذكاء الاصطناعي ولا تُكتب من الذاكرة.</string>
     <string name="summary_memorize">نظام للحفظ والمراجعة: إخفاء الآيات، والتسميع من الذاكرة، والتسميع المباشر بالميكروفون مع تنبيه لطيف عند الاختلاف.</string>
     <string name="summary_prayer">مواقيت الصلاة، وتسجيل الصلوات الخمس، والاستمرارية، والمنبّه، والقبلة.</string>
