@@ -19,8 +19,6 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          build-root-directory: NOOR
       - run: chmod +x ./gradlew
       - run: ./gradlew --no-daemon testDebugUnitTest
       - run: ./gradlew --no-daemon assembleDebug
