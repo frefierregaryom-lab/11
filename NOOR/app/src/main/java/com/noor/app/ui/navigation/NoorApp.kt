@@ -37,6 +37,7 @@ import com.noor.app.ui.components.NoorIconView
 import com.noor.app.ui.screens.about.AboutScreen
 import com.noor.app.ui.screens.home.HomeScreen
 import com.noor.app.ui.screens.more.MoreScreen
+import com.noor.app.ui.screens.memorize.MemorizeScreen
 import com.noor.app.ui.screens.privacy.PrivacyScreen
 import com.noor.app.ui.screens.section.SectionScreen
 import com.noor.app.ui.screens.settings.SettingsScreen
@@ -119,12 +120,16 @@ fun NoorApp(settingsViewModel: SettingsViewModel) {
             // أقسام الشريط السفلي + الأقسام الفرعية: شاشة حالة حقيقية إلى أن تُنفَّذ.
             Section.entries.forEach { section ->
                 composable(section.route) {
-                    val top = section.route in Routes.topLevel
-                    SectionScreen(
-                        section = section,
-                        hasBottomBar = top,
-                        onBack = if (top) null else ({ navController.popBackStack() })
-                    )
+                    if (section == Section.MEMORIZE) {
+                        MemorizeScreen(onBack = { navController.popBackStack() })
+                    } else {
+                        val top = section.route in Routes.topLevel
+                        SectionScreen(
+                            section = section,
+                            hasBottomBar = top,
+                            onBack = if (top) null else ({ navController.popBackStack() })
+                        )
+                    }
                 }
             }
             composable(Routes.MORE) {
