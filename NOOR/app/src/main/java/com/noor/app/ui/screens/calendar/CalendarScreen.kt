@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -66,7 +67,7 @@ fun CalendarScreen() {
                         Text(monthNames[month.monthValue-1] + " " + ArabicDates.toArabicDigits(month.year.toString()), style = MaterialTheme.typography.titleMedium)
                         TextButton(onClick = { month = month.plusMonths(1) }) { Text("التالي") }
                     }
-                    LazyVerticalGrid(columns = GridCells.Fixed(7), modifier = Modifier.fillMaxWidth()) {
+                    LazyVerticalGrid(columns = GridCells.Fixed(7), modifier = Modifier.fillMaxWidth().height(300.dp)) {
                         items(weekNames) { Text(it, modifier = Modifier.padding(5.dp), textAlign = TextAlign.Center, style = MaterialTheme.typography.labelMedium) }
                         items(days) { day ->
                             if (day == null) Text("")
