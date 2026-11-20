@@ -47,7 +47,7 @@ private val occasions = listOf(
 )
 
 @Composable
-fun CalendarScreen() {
+fun CalendarScreen(onBack: () -> Unit) {
     var month by remember { mutableStateOf(YearMonth.now()) }
     var selected by remember { mutableStateOf(LocalDate.now()) }
     val firstOffset = month.atDay(1).dayOfWeek.value % 7
@@ -56,7 +56,7 @@ fun CalendarScreen() {
     val selectedOccasion = occasions.filter {
         it.day == hijri.get(ChronoField.DAY_OF_MONTH) && it.month == hijri.get(ChronoField.MONTH_OF_YEAR)
     }
-    ScreenScaffold(title = "التقويم والمناسبات", hasBottomBar = false) { padding ->
+    ScreenScaffold(title = "التقويم والمناسبات", onBack = onBack, hasBottomBar = false) { padding ->
         Column(Modifier.padding(padding).padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             NoorCard(Modifier.fillMaxWidth()) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
